@@ -58,6 +58,10 @@ public class OrderController {
         orderService.deleteOrder(itemId);
     }
 
+    @GetMapping("/restaurant/{restaurantId}")
+    public List<Order> getOrdersByRestaurantId(@PathVariable String restaurantId) {
+        return orderService.getOrdersByRestaurantId(restaurantId);
+    }
 
 
 

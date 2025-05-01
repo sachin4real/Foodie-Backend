@@ -25,4 +25,5 @@ public class Order {
     private String fullName;
     private String email;
     private String deliveryLocation;
+    private String restaurantName;
 }

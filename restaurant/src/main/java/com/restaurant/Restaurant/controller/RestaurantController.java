@@ -3,6 +3,7 @@ package com.restaurant.Restaurant.controller;
 
 import com.restaurant.Restaurant.model.Restaurant;
 import com.restaurant.Restaurant.service.RestaurantService;
+import com.restaurant.Restaurant.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,21 +60,17 @@ public class RestaurantController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid password");
         }
 
+        // Generate JWT Token
+        String token = JwtUtil.generateToken(restaurant.getId(), "restaurant");
+
        // if ("pending".equals(restaurant.getStatus())) {
           //  return ResponseEntity.ok(Map.of("status", "pending"));
        // }
 
         return ResponseEntity.ok(Map.of(
-                //"status", "pending",
-                "id", restaurant.getId().toString(),
-                "name", restaurant.getName(),
-                "email", restaurant.getEmail(),
-                "phone", restaurant.getPhone(),
-                "address", restaurant.getAddress(),
-                "ownerName", restaurant.getOwnerName(),
-                "openingTime", restaurant.getOpeningTime(),
-                "closingTime", restaurant.getClosingTime(),
-                "image", restaurant.getImage()
+                "token", token,
+                "id", restaurant.getId(),
+                "name", restaurant.getName()
         ));
     }
 

@@ -1,3 +1,4 @@
+// === src/main/java/com/sachin/foododering/controller/AuthController.java ===
 package com.sachin.foododering.controller;
 
 import com.sachin.foododering.model.User;
@@ -11,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -31,7 +33,10 @@ public class AuthController {
     public ResponseEntity<?> registerCustomer(@RequestBody Map<String, String> request) {
         String username = request.get("username");
         String password = request.get("password");
-        User user = userService.registerUser(username, password, "CUSTOMER");
+        String email = request.get("email");  // Get email from the request
+        String mobileNumber = request.get("mobileNumber");  // Get mobile number from the request
+
+        User user = userService.registerUser(username, password, "CUSTOMER", email, mobileNumber);
         return ResponseEntity.ok(user);
     }
 
@@ -40,7 +45,10 @@ public class AuthController {
     public ResponseEntity<?> registerAdmin(@RequestBody Map<String, String> request) {
         String username = request.get("username");
         String password = request.get("password");
-        User user = userService.registerUser(username, password, "ADMIN");
+        String email = request.get("email");  // Get email from the request
+        String mobileNumber = request.get("mobileNumber");  // Get mobile number from the request
+
+        User user = userService.registerUser(username, password, "ADMIN", email, mobileNumber);
         return ResponseEntity.ok(user);
     }
 
@@ -99,4 +107,10 @@ public class AuthController {
         return ResponseEntity.ok(user);
     }
 
+    // New endpoint to get all customers (users who are not admins)
+    @GetMapping("/customers")
+    public ResponseEntity<?> getAllCustomers() {
+        List<User> customers = userService.getAllCustomers();
+        return ResponseEntity.ok(customers);
+    }
 }

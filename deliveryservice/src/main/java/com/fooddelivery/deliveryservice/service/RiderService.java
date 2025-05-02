@@ -5,8 +5,10 @@ import com.fooddelivery.deliveryservice.repository.RiderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
+// === src/main/java/com/fooddelivery/deliveryservice/service/RiderService.java ===
 @Service
 public class RiderService {
 
@@ -35,5 +37,10 @@ public class RiderService {
         }
 
         return null; // Return null if no rider or password mismatch
+    }
+
+    // New method to get all riders
+    public List<Rider> getAllRiders() {
+        return riderRepository.findAll();  // Fetch all riders from the repository
     }
 }

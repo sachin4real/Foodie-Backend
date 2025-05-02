@@ -12,7 +12,8 @@ public class CorsConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         // Allow all paths and allow requests from your frontend URL (localhost:3000)
         registry.addMapping("/**") // Allow all endpoints
-                .allowedOrigins("http://localhost:3000") // Frontend URL (React running on port 3000)
+                .allowedOrigins("http://localhost:3000",
+                        "http://localhost:5173" ) // Frontend URL (React running on port 3000)
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Allow common HTTP methods
                 .allowedHeaders("*") // Allow all headers
                 .allowCredentials(true); // Allow cookies and authentication

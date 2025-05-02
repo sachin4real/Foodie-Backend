@@ -8,6 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.fooddelivery.deliveryservice.model.AuthResponse;
 
+import java.util.List;
+
+// === src/main/java/com/fooddelivery/deliveryservice/controller/RiderController.java ===
 @RestController
 @RequestMapping("/riders")
 public class RiderController {
@@ -41,6 +44,17 @@ public class RiderController {
             return ResponseEntity.ok(new AuthResponse(token)); // Return the token in the response
         } else {
             return ResponseEntity.status(401).body("Invalid email or password"); // Unauthorized if credentials are wrong
+        }
+    }
+
+    // New endpoint to get all riders
+    @GetMapping("/all")
+    public ResponseEntity<?> getAllRiders() {
+        try {
+            List<Rider> riders = riderService.getAllRiders(); // Get all riders from the service
+            return ResponseEntity.ok(riders);  // Return the list of riders in the response
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error fetching riders");
         }
     }
 }

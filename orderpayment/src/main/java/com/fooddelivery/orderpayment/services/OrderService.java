@@ -79,6 +79,10 @@ public class OrderService {
         }
     }
 
+    public List<Order> getOrdersByRestaurantId(String restaurantId) {
+        return orderRepository.findByItemsRestaurantId(restaurantId);
+    }
+
 
 
 

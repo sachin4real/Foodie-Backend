@@ -18,6 +18,13 @@ public class StripeService {
 //    @Value("${stripe.secretKey}")
     private String secretKey;
 
+    @Value("${stripe.success.url}")
+    private String successUrl;
+
+    @Value("${stripe.cancel.url}")
+    private String cancelUrl;
+
+
     @Autowired
     private PaymentRepository paymentRepository;
 
@@ -43,8 +50,8 @@ public class StripeService {
 
         SessionCreateParams params = SessionCreateParams.builder()
                 .setMode(SessionCreateParams.Mode.PAYMENT)
-                .setSuccessUrl("http://localhost:5173/")  // success navigate to this endpoint
-                .setCancelUrl("http://localhost:8080/cancel")
+                .setSuccessUrl(successUrl)
+                .setCancelUrl(cancelUrl)
                 .addLineItem(lineItem)
                 .build();
 
